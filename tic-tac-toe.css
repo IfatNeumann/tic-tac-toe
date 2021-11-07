@@ -67,3 +67,10 @@ body {
 .pretty-button:hover {
   background-color: #F082AC;
 }
+
+h1 { 
+    color: #F082AC; 
+    font-size: 48px; 
+    font-family: 'Signika', sans-serif; 
+    padding-bottom: 10px; 
+}
