@@ -82,19 +82,17 @@ function checkPlayerHasWinningPattern() {
 	gameOver = false;
 	player_selections = selections[turn];
 	for (var p=0; p < win_patterns.length; p++) {
-		if (gameOver != true) { 
-			gameOver = isContainingThisWinningPattern(player_selections, win_patterns[p]);
+		gameOver = isContainingThisWinningPattern(player_selections, win_patterns[p]);
 
-			if ( gameOver === true ) {
+		if ( gameOver === true ) {
 
-				// On winning disabled all boxes
-				disableAllBoxes();
+			// On winning disabled all boxes
+			disableAllBoxes();
 
-				alert('Player '+turn+' Won !!');
-				
-				break;
-			} 
-		}
+			alert('Player '+turn+' Won !!');
+			
+			break;
+		} 
 	}
 
 	// If no one wins; declare DRAW
@@ -122,10 +120,10 @@ function isContainingThisWinningPattern(player_selections, win_pattern){
 	return false;
 }
 
-// Disable all boxes after winning/draw
+// Disable all cells after winning/draw
 function disableAllBoxes() {
 
-	var elements = document.getElementsByClassName("grid-box");
+	var elements = document.getElementsByClassName("grid-cell");
 	for (var i = 0; i < elements.length; i++) {
 	  elements[i].disabled =true;
 	}
