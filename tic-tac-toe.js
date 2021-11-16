@@ -6,6 +6,10 @@ selections['O'] = [0,0,0,0,0,0,0,0,0];
 
 var total_turns_played = 0;
 
+var scores = new Array(); 
+	scores['X'] = 0;
+	scores['O'] = 0;
+
 //[0,1,2]
 //[3,4,5]
 //[6,7,8]
@@ -90,6 +94,9 @@ function checkPlayerHasWinningPattern() {
 			disableAllBoxes();
 
 			alert('Player '+turn+' Won !!');
+
+			// Updating score card
+			scoreUpdate(turn);
 			
 			break;
 		} 
@@ -127,4 +134,10 @@ function disableAllBoxes() {
 	for (var i = 0; i < elements.length; i++) {
 	  elements[i].disabled =true;
 	}
+}
+
+// Update the players' score
+function scoreUpdate(turn){
+	scores[turn]++;
+	document.getElementById('score-'+turn).innerHTML = scores[turn];
 }

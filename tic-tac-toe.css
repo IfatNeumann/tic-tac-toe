@@ -74,3 +74,11 @@ h1 {
     font-family: 'Signika', sans-serif; 
     padding-bottom: 10px; 
 }
+
+.score-card {
+	font-weight: bold;
+	line-height: 25px;
+}
+.score-card span {
+	font-weight: normal;
+}
