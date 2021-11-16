@@ -6,6 +6,9 @@ selections['O'] = [0,0,0,0,0,0,0,0,0];
 
 var total_turns_played = 0;
 
+var with_computer = true;
+var optional_selections_for_computer = [0,0,0,0,0,0,0,0,0];
+
 var scores = new Array(); 
 	scores['X'] = 0;
 	scores['O'] = 0;
@@ -31,6 +34,15 @@ function generateGame(){
 	selections['O'] = [0,0,0,0,0,0,0,0,0];
 
 	total_turns_played = 0;
+
+	with_computer = true;
+	optional_selections_for_computer = [0,0,0,0,0,0,0,0,0];
+
+	// is auto player selected 
+	auto_player = document.getElementById('with_computer'); 
+	if (auto_player.checked === true) with_computer = true; 
+	else  with_computer = false;
+
 
 	// Clearing board for new game
 	document.getElementById('game-board').innerHTML = '';
@@ -64,6 +76,7 @@ function markCheck(obj){
 
 	var cell = Number(obj.id);
 	selections[turn][cell] = 1;
+	optional_selections_for_computer[cell] = 1;
 
 	if (turn == 'X' ) {
 		obj.setAttribute("class", 'green-player');
@@ -77,8 +90,29 @@ function markCheck(obj){
 }
 
 function changeTurn(){
-	if (turn == 'X') turn = 'O';
+	if (turn == 'X') {
+		turn = 'O';
+
+		// if auto player selected
+		if (with_computer===true) autoTurn();
+	}
 	else turn = 'X';
+}
+
+function autoTurn() {
+	available_cells = []
+
+	// find available indexes
+	for(var i=0; i< optional_selections_for_computer.length; i++){
+		if (optional_selections_for_computer[i] == 0){
+			available_cells.push(i);
+		} 
+	}
+
+	// choose randomly where to mark check
+	var chosen_cell = available_cells[Math.floor(Math.random() * available_cells.length)];//8
+	var desired_obj = document.getElementById(chosen_cell);
+	markCheck(desired_obj);
 }
 
 // Checking winner of selected type on selection
@@ -97,6 +131,9 @@ function checkPlayerHasWinningPattern() {
 
 			// Updating score card
 			scoreUpdate(turn);
+
+			// to avoid additional mark check after X wins
+			with_computer = false;
 			
 			break;
 		} 
